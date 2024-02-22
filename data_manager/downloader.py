@@ -1,11 +1,13 @@
 import os
 import re
+from .datamodule import DataModule
 
-class Downloader:
+class Downloader(DataModule):
 	working_dir: str
-
+	
 	def __init__(self, working_dir: str):
 		self.working_dir = working_dir
+		super().registerAllowedMethods(['get'])
 
 	def get(self, project: str, download: str):
 		if not self.project_is_valid(project):

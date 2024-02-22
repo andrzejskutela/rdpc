@@ -22,9 +22,10 @@ try:
 	else:
 		raise Exception("Not enough arguments given")
 
-	method = getattr(handler, sys.argv[2])
-	method(*sys.argv[3:])
+	handler.execute(sys.argv[2], sys.argv[3:])
 except Exception as e:
 	how_to_use_info()
-	print(e)
+	exc_type, exc_obj, traceback = sys.exc_info()
+	fname = os.path.split(traceback.tb_frame.f_code.co_filename)[1]
+	print(f"{e} ({fname}:{traceback.tb_lineno})")
 
